@@ -1,0 +1,5 @@
+flask
+flask-migrate
+jsonify
+flask_sqlalchemy
+pytest
