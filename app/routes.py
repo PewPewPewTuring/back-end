@@ -1,8 +1,6 @@
-from app import app
 from flask import request
 from app.models import Game
 import json
-import jsonify
 
 def configure_routes(app):
     @app.route('/')
