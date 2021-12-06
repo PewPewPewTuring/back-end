@@ -46,11 +46,11 @@ def test_get_route_leaderboard():
 
     response = client.get(url)
 
+    breakpoint()
     assert response.status_code == 200
 
     response_data_string = response.get_data()
     response_data = json.loads(response_data_string)
-
     assert type(response_data) is hash
     assert type(response_data.games) is list
     assert response_data.games.count() == 10
