@@ -1,13 +1,76 @@
-from app import app
 from flask import request
 from app.models import Game
 import json
-import jsonify
 
 def configure_routes(app):
     @app.route('/')
     def hello_world():
         return "Hello, World!"
+
+    @app.route('/leaderboard')
+    def get_leaderboard():
+        games_array = Game.query.order_by(Game.score.desc()).limit(10).all()
+        leaderboard_json = {
+            "games": [ 
+                 {
+                    "id": games_array[0].id,
+                    "player_name": games_array[0].player_name,
+                    "score": games_array[0].score
+                },
+                {
+                    "id": games_array[1].id,
+                    "player_name": games_array[1].player_name,
+                    "score": games_array[1].score
+                },
+                {
+                    "id": games_array[2].id,
+                    "player_name": games_array[2].player_name,
+                    "score": games_array[2].score
+                },
+                {
+                    "id": games_array[3].id,
+                    "player_name": games_array[3].player_name,
+                    "score": games_array[3].score
+                },
+                {
+                    "id": games_array[4].id,
+                    "player_name": games_array[4].player_name,
+                    "score": games_array[4].score
+                },
+                {
+                    "id": games_array[5].id,
+                    "player_name": games_array[5].player_name,
+                    "score": games_array[5].score
+                },
+                {
+                    "id": games_array[6].id,
+                    "player_name": games_array[6].player_name,
+                    "score": games_array[6].score
+                },
+                {
+                    "id": games_array[7].id,
+                    "player_name": games_array[7].player_name,
+                    "score": games_array[7].score
+                },
+                {
+                    "id": games_array[8].id,
+                    "player_name": games_array[8].player_name,
+                    "score": games_array[8].score
+                },
+                {
+                    "id": games_array[9].id,
+                    "player_name": games_array[9].player_name,
+                    "score": games_array[9].score
+                }
+            ]
+        }
+
+        response = app.response_class(
+            response=json.dumps(leaderboard_json),
+            status=200,
+            mimetype="application/json"
+        )  
+        return response
 
     @app.route('/games', methods=['POST'])
     def receive_post():
