@@ -1,6 +1,7 @@
 from flask import Flask
 import json
 from pewpewpew import app, configure_routes, Game, db
+import psycopg2
 
 
 app = Flask(__name__)
@@ -8,6 +9,12 @@ configure_routes(app)
 client = app.test_client()
 
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:postgres@localhost:5432/back_end_test"
+connection = psycopg2.connect(
+                                  user="postgres",
+                                  password="pewpewpewturing",
+                                  host="127.0.0.1",
+                                  port="5432",
+                                  database="back_end_test")
 db.session.close()
 db.drop_all()
 db.create_all()
