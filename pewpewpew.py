@@ -4,10 +4,17 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_seeder import FlaskSeeder
 import json
+import psycopg2
 
 app = Flask(__name__)
 # app.config.from_object(Config)
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:postgres@localhost:5432/back_end_development"
+connection = psycopg2.connect(
+                                  user="postgres",
+                                  password="pewpewpewturing",
+                                  host="127.0.0.1",
+                                  port="5432",
+                                  database="back_end_development")
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 seeder = FlaskSeeder()
