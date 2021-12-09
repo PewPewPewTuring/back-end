@@ -1,8 +1,6 @@
-from typing import List
 from flask import Flask
 import json
-from app.routes import configure_routes
-from app.models import Game
+from pewpewpew import app, configure_routes
 
 app = Flask(__name__)
 configure_routes(app)
@@ -16,7 +14,7 @@ def test_base_route():
     assert response.status_code == 200
 
 def test_post_route_success():
-    url = '/games'
+    url = '/api/v1/games'
 
     mock_request_data = {
         "payload": {
@@ -38,7 +36,7 @@ def test_post_route_success():
     assert response_data == mock_game_response
 
 def test_get_route_leaderboard():
-    url = '/leaderboard'
+    url = '/api/v1/leaderboard'
     response = client.get(url)
 
     assert response.status_code == 200
