@@ -1,17 +1,21 @@
 from flask import Flask, request
-from config import Config
+# from config import Config
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_seeder import FlaskSeeder
 import json
 
 app = Flask(__name__)
-app.config.from_object(Config)
+# app.config.from_object(Config)
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:postgres@localhost:5432/back_end_development"
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 seeder = FlaskSeeder()
 seeder.init_app(app, db)
+
 class Game(db.Model):
+    __tablename__ = 'games'
+
     id = db.Column(db.Integer, primary_key=True)
     player_name = db.Column(db.String(64))
     score = db.Column(db.Integer)

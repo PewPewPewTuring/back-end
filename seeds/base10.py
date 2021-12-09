@@ -1,5 +1,5 @@
 from flask_seeder import Seeder
-from app.models import Game
+from pewpewpew import Game
 
 class DemoSeeder(Seeder):
     def run(self):
