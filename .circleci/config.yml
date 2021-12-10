@@ -24,9 +24,11 @@ jobs:
       - image: cimg/python:3.8
       - image: cimg/postgres:13.4
         environment:
-            POSTGRES_USER: postgres
+            POSTGRES_USER: postgres_test
             POSTGRES_DB: back_end_test
-            POSTGRES_TEST: back_end_development
+        environment:
+            POSTGRES_USER: postgres_development
+            POSTGRES_DB: back_end_development
     executor: python/default
     environment:
       PGHOST: 127.0.0.1
