@@ -23,6 +23,14 @@ jobs:
     docker:
       - image: cimg/python:3.8
       - image: cimg/postgres:13.4
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_DB: back-end-test
+    executor: python/default
+    environment:
+      PGHOST: 127.0.0.1
+      PGUSER: postgres
+      RAILS_ENV: test
     # Checkout the code as the first step. This is a dedicated CircleCI step.
     # The python orb's install-packages step will install the dependencies from a Pipfile via Pipenv by default.
     # Here we're making sure we use just use the system-wide pip. By default it uses the project root's requirements.txt.
