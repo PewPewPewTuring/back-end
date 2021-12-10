@@ -10,10 +10,11 @@ import os
 app = Flask(__name__)
 
 basedir = os.path.abspath(os.path.dirname(__file__))
-if os.environ.get('DATABASE_URL') is None:
-    app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:postgres@localhost:5432/back_end_development"
-else:
-    app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://vqsggxzqtfottl:c71674bbbb90622bac9ab"
+#Reactivate for running local
+# if os.environ.get('DATABASE_URL') is None:
+#     app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:postgres@localhost:5432/back_end_development"
+# else:
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://vqsggxzqtfottl:c71674bbbb90622bac9ab"
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
