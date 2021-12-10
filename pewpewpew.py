@@ -1,14 +1,20 @@
 from flask import Flask, request
-# from config import Config
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_seeder import FlaskSeeder
 import json
 import psycopg2
+import os
+
 
 app = Flask(__name__)
-# app.config.from_object(Config)
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:postgres@localhost:5432/back_end_development"
+
+basedir = os.path.abspath(os.path.dirname(__file__))
+#Reactivate for running local
+# if os.environ.get('DATABASE_URL') is None:
+#     app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:postgres@localhost:5432/back_end_development"
+# else:
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://vqsggxzqtfottl:c71674bbbb90622bac9ab"
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
