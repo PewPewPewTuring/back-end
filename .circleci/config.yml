@@ -24,8 +24,9 @@ jobs:
       - image: cimg/python:3.8
       - image: cimg/postgres:13.4
         environment:
+            FLASK_CONFIG: testing
             POSTGRES_USER: postgres_test
-            POSTGRES_DB: back_end_test
+            TEST_DB: back_end_test
         environment:
             POSTGRES_USER: postgres_development
             POSTGRES_DB: back_end_development
