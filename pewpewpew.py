@@ -14,13 +14,6 @@ if os.environ.get('DATABASE_URL') is None:
     app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:postgres@localhost:5432/back_end_development"
 else:
     app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://vqsggxzqtfottl:c71674bbbb90622bac9ab"
-# app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:postgres@localhost:5432/back_end_development"
-
-# conn = psycopg2.connect(
-#     host="localhost",
-#     database="back_end_development",
-#     user="postgres",
-#     password="pewpewpewturing")
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
