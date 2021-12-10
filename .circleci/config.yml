@@ -42,8 +42,10 @@ jobs:
               TEST_DATABASE_URL: postgresql://postgres:postgres@localhost:5432/back_end_development
           - image: cimg/postgres:13.4
             environment:
-              POSTGRES_DB: postgres://vqsggxzqtfottl:c71674bbbb90622bac9ab
-
+              POSTGRES_DB: back_end_development
+    environment:
+      PGHOST: 127.0.0.1
+      PGUSER: postgres
 
       # RAILS_ENV: test
     # Checkout the code as the first step. This is a dedicated CircleCI step.
