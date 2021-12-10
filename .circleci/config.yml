@@ -21,30 +21,27 @@ jobs:
     # The executor is the environment in which the steps below will be executed - below will use a python 3.8 container
     # Change the version below to your required version of python
 
-    # docker:
-    #   - image: cimg/python:3.8
-    #   - image: cimg/postgres:13.4
-    #     test_environment:
-    #         FLASK_CONFIG: testing
-    #         TEST_DB: back_end_test
-    #     environment:
-    #         POSTGRES_USER: postgres_development
-    #         POSTGRES_DB: back_end_development
-    # executor: python/default
-    # environment:
-    #   PGHOST: 127.0.0.1
-    #   PGUSER: postgres
-
     docker:
-          - image: cimg/python:3.8
-            environment:
-              POSTGRES_DB: back_end_test
-          - image: cimg/postgres:13.4
-            environment:
-              POSTGRES_DB: back_end_development
+      - image: cimg/python:3.8
+      - image: cimg/postgres:13.4
+        environment:
+            POSTGRES_USER: postgres_development
+            POSTGRES_DB: back_end_development
+    executor: python/default
     environment:
       PGHOST: 127.0.0.1
       PGUSER: postgres
+
+    # docker:
+    #       - image: cimg/python:3.8
+    #         environment:
+    #           POSTGRES_DB: back_end_test
+    #       - image: cimg/postgres:13.4
+    #         environment:
+    #           POSTGRES_DB: back_end_development
+    # environment:
+    #   PGHOST: 127.0.0.1
+    #   PGUSER: postgres
 
       # RAILS_ENV: test
     # Checkout the code as the first step. This is a dedicated CircleCI step.
