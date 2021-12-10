@@ -1,5 +1,5 @@
 from flask import Flask, request
-# from config import Config
+from config import Config
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_seeder import FlaskSeeder
@@ -7,14 +7,14 @@ import json
 import psycopg2
 
 app = Flask(__name__)
-# app.config.from_object(Config)
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:postgres@localhost:5432/back_end_development"
+app.config.from_object(Config)
+# app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:postgres@localhost:5432/back_end_development"
 
-conn = psycopg2.connect(
-    host="localhost",
-    database="back_end_development",
-    user="postgres",
-    password="pewpewpewturing")
+# conn = psycopg2.connect(
+#     host="localhost",
+#     database="back_end_development",
+#     user="postgres",
+#     password="pewpewpewturing")
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
