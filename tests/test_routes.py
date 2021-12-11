@@ -2,9 +2,6 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 import json
 from pewpewpew import configure_routes, Game
-import psycopg2
-import os
-
 
 app = Flask(__name__)
 configure_routes(app)
