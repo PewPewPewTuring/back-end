@@ -128,8 +128,8 @@ def configure_routes(app):
 
             game = Game(player_name = payload['player_name'], score = score_calculations())
             
-            # db.session.add(game)
-            # db.session.commit()
+            db.session.add(game)
+            db.session.commit()
 
             game_json = {
             "player_name": game.player_name,
