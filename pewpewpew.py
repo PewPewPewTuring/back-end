@@ -13,7 +13,8 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 if os.environ.get('DATABASE_URL') is None:
     app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:postgres@localhost:5432/back_end_test"
 else:
-    app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://vqsggxzqtfottl:c71674bbbb90622bac9ab"
+    app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://vqsggxzqtfottl:c71674bbbb90622bac9ab4a9ee75cff11ce69881a26dae466227dbc265122c37@ec2-54-158-247-97.compute-1.amazonaws.com:5432/dcei9coo1i8eg1"
+    # app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://vqsggxzqtfottl:c71674bbbb90622bac9ab"
 # app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://vqsggxzqtfottl:c71674bbbb90622bac9ab"
 
 db = SQLAlchemy(app)
