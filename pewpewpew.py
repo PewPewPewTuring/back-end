@@ -2,13 +2,11 @@ from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_seeder import FlaskSeeder
-from flask_cors import CORS
 import json
 import os
 
 
 app = Flask(__name__)
-cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 #Reactivate for running local
@@ -129,7 +127,7 @@ def configure_routes(app):
                 return score
 
             game = Game(player_name = payload['player_name'], score = score_calculations())
-
+            
             db.session.add(game)
             db.session.commit()
 
