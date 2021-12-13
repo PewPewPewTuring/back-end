@@ -37,59 +37,15 @@ def configure_routes(app):
         games_array = Game.query.order_by(Game.score.desc()).limit(10).all()
 
         leaderboard_json = {
-            "games": [
-                    {
-                    "id": games_array[0].id,
-                    "player_name": games_array[0].player_name,
-                    "score": games_array[0].score
-                },
-                {
-                    "id": games_array[1].id,
-                    "player_name": games_array[1].player_name,
-                    "score": games_array[1].score
-                },
-                {
-                    "id": games_array[2].id,
-                    "player_name": games_array[2].player_name,
-                    "score": games_array[2].score
-                },
-                {
-                    "id": games_array[3].id,
-                    "player_name": games_array[3].player_name,
-                    "score": games_array[3].score
-                },
-                {
-                    "id": games_array[4].id,
-                    "player_name": games_array[4].player_name,
-                    "score": games_array[4].score
-                },
-                {
-                    "id": games_array[5].id,
-                    "player_name": games_array[5].player_name,
-                    "score": games_array[5].score
-                },
-                {
-                    "id": games_array[6].id,
-                    "player_name": games_array[6].player_name,
-                    "score": games_array[6].score
-                },
-                {
-                    "id": games_array[7].id,
-                    "player_name": games_array[7].player_name,
-                    "score": games_array[7].score
-                },
-                {
-                    "id": games_array[8].id,
-                    "player_name": games_array[8].player_name,
-                    "score": games_array[8].score
-                },
-                {
-                    "id": games_array[9].id,
-                    "player_name": games_array[9].player_name,
-                    "score": games_array[9].score
-                }
-            ]
-        }
+            "games": []
+            }
+
+        for x in games_array:
+            leaderboard_json["games"].append({
+                "id": x.id,
+                "player_name": x.player_name,
+                "score": x.score
+            })
 
         response = app.response_class(
             response=json.dumps(leaderboard_json),
@@ -98,6 +54,7 @@ def configure_routes(app):
         )
 
         return response
+
 
     @app.route('/api/v1/games', methods=['POST'])
     def receive_post():
@@ -143,7 +100,13 @@ def configure_routes(app):
         else:
             return 'bad request', 400
 
-configure_routes(app)
+    @app.route('/api/v1/games/<id>', methods=['DELETE'])
+    def delete_game(id):
+        game = Game.query.get(id)
 
-# if __name__ == '__main__':
-#     app.run(host='localhost', port=5000, debug=True)
+        db.session.delete(game)
+        db.session.commit()
+
+        return "Deleted game"
+
+configure_routes(app)
