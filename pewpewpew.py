@@ -6,18 +6,14 @@ from flask_cors import CORS
 import json
 import os
 
-
 app = Flask(__name__)
 cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 basedir = os.path.abspath(os.path.dirname(__file__))
-#Reactivate for running local
 if os.environ.get('DATABASE_URL') is None:
     app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:postgres@localhost:5432/back_end_test"
 else:
     app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://vqsggxzqtfottl:c71674bbbb90622bac9ab4a9ee75cff11ce69881a26dae466227dbc265122c37@ec2-54-158-247-97.compute-1.amazonaws.com:5432/dcei9coo1i8eg1"
-    # app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://vqsggxzqtfottl:c71674bbbb90622bac9ab"
-# app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://vqsggxzqtfottl:c71674bbbb90622bac9ab"
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
@@ -113,17 +109,17 @@ def configure_routes(app):
         if payload:
             def score_calculations():
                 score = 100000
-                if int(payload['time_lapsed']) < 60:
+                if int(payload['time_lapsed']) < 10:
                     score += 50000
-                elif int(payload['time_lapsed']) < 120:
+                elif int(payload['time_lapsed']) < 25:
                     score += 25000
-                elif int(payload['time_lapsed']) < 180:
+                elif int(payload['time_lapsed']) < 45:
                     score += 10000
-                if int(payload['moves_taken']) < 50:
+                if int(payload['moves_taken']) < 55:
                     score += 50000
-                elif int(payload['moves_taken']) < 75:
+                elif int(payload['moves_taken']) < 65:
                     score += 25000
-                elif int(payload['moves_taken']) < 100:
+                elif int(payload['moves_taken']) < 75:
                     score += 10000
                 score += int(payload['hidden_items_found'])*10000
                 return score
