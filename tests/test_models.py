@@ -8,6 +8,9 @@ client = app.test_client()
 
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:postgres@localhost:5432/back_end_test"
 db = SQLAlchemy(app)
-db.session.query(Game).delete()
-db.session.commit()
-db.session.close()
+
+def test_game_attributes():
+    assert Game.query.all()[0].player_name == "AAA"
+    assert Game.query.all()[1].player_name == "BBB"
+    assert Game.query.all()[0].score == 0
+    assert Game.query.all()[1].score == 10000
