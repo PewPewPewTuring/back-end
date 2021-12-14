@@ -9,9 +9,8 @@ client = app.test_client()
 
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:postgres@localhost:5432/back_end_test"
 db = SQLAlchemy(app)
-db.session.close()
-db.drop_all()
-db.create_all()
+db.session.query(Game).delete()
+db.session.commit()
 game01 = Game(player_name="AAA", score=0)
 game02 = Game(player_name="AAA", score=10000)
 game03 = Game(player_name="AAA", score=20000)
@@ -32,6 +31,8 @@ db.session.add(game07)
 db.session.add(game08)
 db.session.add(game09)
 db.session.add(game10)
+db.session.commit()
+db.session.close()
 
 def test_base_route():
     url = '/'
