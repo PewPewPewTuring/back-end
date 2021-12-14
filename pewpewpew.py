@@ -27,6 +27,23 @@ class Game(db.Model):
     player_name = db.Column(db.String(64))
     score = db.Column(db.Integer)
 
+def score_calculations(payload):
+    score = 100000
+    if int(payload['time_lapsed']) < 10:
+        score += 50000
+    elif int(payload['time_lapsed']) < 25:
+        score += 25000
+    elif int(payload['time_lapsed']) < 45:
+        score += 10000
+    if int(payload['moves_taken']) < 55:
+        score += 50000
+    elif int(payload['moves_taken']) < 65:
+        score += 25000
+    elif int(payload['moves_taken']) < 75:
+        score += 10000
+    score += int(payload['hidden_items_found'])*10000
+    return score
+
 def configure_routes(app):
     @app.route('/', methods=['GET'])
     def hello_world():
@@ -64,25 +81,8 @@ def configure_routes(app):
         payload = data.get('payload')
 
         if payload:
-            def score_calculations():
-                score = 100000
-                if int(payload['time_lapsed']) < 10:
-                    score += 50000
-                elif int(payload['time_lapsed']) < 25:
-                    score += 25000
-                elif int(payload['time_lapsed']) < 45:
-                    score += 10000
-                if int(payload['moves_taken']) < 55:
-                    score += 50000
-                elif int(payload['moves_taken']) < 65:
-                    score += 25000
-                elif int(payload['moves_taken']) < 75:
-                    score += 10000
-                score += int(payload['hidden_items_found'])*10000
-                return score
-                
 
-            game = Game(player_name = payload['player_name'], score = score_calculations())
+            game = Game(player_name = payload['player_name'], score = score_calculations(payload))
 
             db.session.add(game)
             db.session.commit()

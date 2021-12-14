@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 import json
-from pewpewpew import configure_routes, Game
+from pewpewpew import configure_routes, Game, score_calculations
 
 app = Flask(__name__)
 configure_routes(app)
@@ -81,46 +81,28 @@ def test_get_route_leaderboard():
     assert type(response_data['games'][0]['score']) is int
 
 def test_score_logic():
-    payload = {
+    payload01 = {
         "player_name": "AAA",
         "time_lapsed": "44",
         "moves_taken": "50",
         "hidden_items_found": "2"
     }
+    assert score_calculations(payload01) == 180000
 
-    def score_calculations():
-        score = 100000
-        if int(payload['time_lapsed']) < 10:
-            score += 50000
-        elif int(payload['time_lapsed']) < 25:
-            score += 25000
-        elif int(payload['time_lapsed']) < 45:
-            score += 10000
-        if int(payload['moves_taken']) < 55:
-            score += 50000
-        elif int(payload['moves_taken']) < 65:
-            score += 25000
-        elif int(payload['moves_taken']) < 75:
-            score += 10000
-        score += int(payload['hidden_items_found'])*10000
-        return score
-
-    assert score_calculations() == 180000
-
-    payload = {
+    payload02 = {
         "player_name": "AAA",
         "time_lapsed": "9",
         "moves_taken": "63",
         "hidden_items_found": "0"
     }
 
-    assert score_calculations() == 175000
+    assert score_calculations(payload02) == 175000
 
-    payload = {
+    payload03 = {
         "player_name": "AAA",
         "time_lapsed": "11",
         "moves_taken": "67",
         "hidden_items_found": "0"
     }
 
-    assert score_calculations() == 135000
+    assert score_calculations(payload03) == 135000
