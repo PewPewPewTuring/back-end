@@ -183,4 +183,4 @@
 [stars-url]: https://github.com/pewpewpewturing/back-end/stargazers
 [issues-shield]: https://img.shields.io/github/issues/pewpewpewturing/back-end.svg?style=flat-square
 [issues-url]: https://github.com/pewpewpewturing/back-end/issues
-[build-badge]: https://img.shields.io/circleci/build/gh/pewpewpewturing/back-end?style=flat-square
+[build-badge]: https://img.shields.io/circleci/build/gh/pewpewpewturing/back-end.svg?style=svg
