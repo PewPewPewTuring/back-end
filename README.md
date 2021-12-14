@@ -56,19 +56,13 @@
   * From the command line, install dependencies and set up your DB:
       * `python3 -m venv venv`
       * `source venv/bin/activate`
-      * `pip3 install flask`
-      * `pip3 install flask-sqlalchemy`
-      * `pip3 install flask-migrate`
-      * `pip3 install pytest`
-      * `pip3 install pytest-flask`
-      * `pip3 install pytest-cov`
-      * `pip3 install jsonify`
-      * `pip3 install flask-seeder`
+      * `pip3 install -r requirements.txt`
       * `export FLASK_APP=pewpewpew.py`
       * `python3 -m flask db migrate -m "games table"`
       * `python3 -m flask db upgrade`
-      * `flask seed`
+      * `flask seed run`
   * Run the test suite with `pytest`
+  * Run test coverage report with `pytest --cov=pewpewpew tests/`
   * Run your development server with `flask run` to see the app in action.
 
   * [Heroku Deployment](https://pewpewpew-be.herokuapp.com/), for production
@@ -170,9 +164,14 @@
     ]
   }
  ```
+
+ * DELETE to `/api/v1/games/<id>`
+ - deletes one game from database by id
+ ```
+ no request body or headers
+ ```
  </div>
 
-## Acknowledgements
 
 <!-- MARKDOWN LINKS & IMAGES -->
 
