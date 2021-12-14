@@ -38,7 +38,7 @@ def test_base_route():
     url = '/'
 
     response = client.get(url)
-    assert response.get_data() == b"Hello, World!"
+    assert response.get_data() == b"PewPewPew Scoring API"
     assert response.status_code == 200
 
 def test_post_route_success():
@@ -79,3 +79,48 @@ def test_get_route_leaderboard():
     assert type(response_data['games'][0]) is dict
     assert type(response_data['games'][0]['player_name']) is str
     assert type(response_data['games'][0]['score']) is int
+
+def test_score_logic():
+    payload = {
+        "player_name": "AAA",
+        "time_lapsed": "44",
+        "moves_taken": "50",
+        "hidden_items_found": "2"
+    }
+
+    def score_calculations():
+        score = 100000
+        if int(payload['time_lapsed']) < 10:
+            score += 50000
+        elif int(payload['time_lapsed']) < 25:
+            score += 25000
+        elif int(payload['time_lapsed']) < 45:
+            score += 10000
+        if int(payload['moves_taken']) < 55:
+            score += 50000
+        elif int(payload['moves_taken']) < 65:
+            score += 25000
+        elif int(payload['moves_taken']) < 75:
+            score += 10000
+        score += int(payload['hidden_items_found'])*10000
+        return score
+
+    assert score_calculations() == 180000
+
+    payload = {
+        "player_name": "AAA",
+        "time_lapsed": "9",
+        "moves_taken": "63",
+        "hidden_items_found": "0"
+    }
+
+    assert score_calculations() == 175000
+
+    payload = {
+        "player_name": "AAA",
+        "time_lapsed": "11",
+        "moves_taken": "67",
+        "hidden_items_found": "0"
+    }
+
+    assert score_calculations() == 135000

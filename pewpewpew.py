@@ -30,7 +30,7 @@ class Game(db.Model):
 def configure_routes(app):
     @app.route('/', methods=['GET'])
     def hello_world():
-        return "Hello, World!"
+        return "PewPewPew Scoring API"
 
     @app.route('/api/v1/leaderboard', methods=['GET'])
     def get_leaderboard():
@@ -80,6 +80,7 @@ def configure_routes(app):
                     score += 10000
                 score += int(payload['hidden_items_found'])*10000
                 return score
+                
 
             game = Game(player_name = payload['player_name'], score = score_calculations())
 
