@@ -106,3 +106,11 @@ def test_score_logic():
     }
 
     assert score_calculations(payload03) == 135000
+
+def test_delete_game():
+    game_id = Game.query.all()[-1].id
+    url = f"/api/v1/games/{game_id}"
+
+    response = client.delete(url)
+
+    assert Game.query.all()[-1].id != game_id
