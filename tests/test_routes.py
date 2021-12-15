@@ -114,3 +114,20 @@ def test_delete_game():
     response = client.delete(url)
 
     assert Game.query.all()[-1].id != game_id
+
+def test_get_all_games():
+    url = '/api/v1/games'
+
+    response = client.get(url)
+
+    assert response.status_code == 200
+
+    response_data_string = response.get_data()
+    response_data = json.loads(response_data_string)
+
+    assert type(response_data) == dict
+    assert type(response_data['games']) is list
+    assert type(response_data['games'][0]) is dict
+    assert type(response_data['games'][0]['id']) is int  
+    assert type(response_data['games'][0]['player_name']) is str
+    assert type(response_data['games'][0]['score']) is int

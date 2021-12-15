@@ -110,4 +110,28 @@ def configure_routes(app):
 
         return "Deleted game"
 
+    @app.route('/api/v1/games', methods=['GET'])
+    def get_all_games():
+        games_array = Game.query.all()
+
+        games_json = {
+            "games": []
+            }
+
+        for x in games_array:
+            games_json["games"].append({
+                "id": x.id,
+                "player_name": x.player_name,
+                "score": x.score
+            })
+
+        response = app.response_class(
+            response=json.dumps(games_json),
+            status=200,
+            mimetype="application/json"
+        )
+
+        return response
+
+
 configure_routes(app)
